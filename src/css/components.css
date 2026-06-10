@@ -1,0 +1,233 @@
+/* ============================================================
+   COMPONENTS — botões, inputs, cards, badges, toast
+   ============================================================ */
+
+/* ---------- Botões ---------- */
+.btn {
+  appearance: none;
+  border: none;
+  border-radius: var(--r-pill);
+  padding: 14px 22px;
+  font-size: var(--fs-md);
+  font-weight: 600;
+  min-height: 48px;            /* área de toque iOS */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-2);
+  transition: transform var(--t-fast) var(--ease), box-shadow var(--t-fast) var(--ease), background var(--t-fast) var(--ease);
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+}
+.btn:active { transform: scale(0.97); }
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--rose-600), var(--rose-700));
+  color: var(--white);
+  box-shadow: var(--shadow-md);
+}
+.btn-primary:active { box-shadow: var(--shadow-sm); }
+
+.btn-ghost {
+  background: transparent;
+  color: var(--accent-strong);
+  border: 1.5px solid rgba(110,30,58,0.18);
+}
+
+.btn-gold {
+  background: linear-gradient(135deg, var(--gold-2), var(--gold));
+  color: var(--rose-900);
+  box-shadow: var(--glow-gold);
+}
+
+.btn-block { width: 100%; }
+.btn-back { align-self: flex-start; padding: 10px 16px; min-height: 40px; }
+
+/* ---------- Campos de formulário ---------- */
+.field { display: flex; flex-direction: column; gap: var(--sp-2); }
+.field-label {
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  color: var(--accent-strong);
+}
+.field input {
+  width: 100%;
+  font-size: 16px;             /* >=16px evita zoom automático no iOS */
+  font-family: inherit;
+  color: var(--text);
+  background: var(--surface);
+  border: 1.5px solid rgba(110,30,58,0.15);
+  border-radius: var(--r-md);
+  padding: 14px 16px;
+  min-height: 50px;
+  transition: border-color var(--t-fast) var(--ease), box-shadow var(--t-fast) var(--ease);
+}
+.field input:focus {
+  outline: none;
+  border-color: var(--rose-500);
+  box-shadow: 0 0 0 4px var(--rose-100);
+}
+.field input::placeholder { color: #C9B6BC; }
+
+/* ---------- Cards grandes (home) ---------- */
+.big-card {
+  position: relative;
+  width: 100%;
+  text-align: left;
+  background: var(--surface);
+  border: none;
+  border-radius: var(--r-lg);
+  padding: var(--sp-6) var(--sp-4);
+  display: flex;
+  align-items: center;
+  gap: var(--sp-4);
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--t-base) var(--ease), box-shadow var(--t-base) var(--ease);
+  overflow: hidden;
+}
+.big-card:active { transform: scale(0.98); }
+.big-card--quiz {
+  background: linear-gradient(135deg, var(--rose-600), var(--rose-900));
+  color: var(--white);
+  box-shadow: var(--shadow-md);
+}
+.big-card--quiz .big-card-sub { color: rgba(255,255,255,0.85); }
+
+.big-card-icon {
+  flex: 0 0 auto;
+  display: grid; place-items: center;
+  width: 48px; height: 48px;
+  border-radius: 14px;
+  background: var(--rose-100);
+  color: var(--rose-700);
+}
+.big-card-icon svg { width: 26px; height: 26px; }
+.big-card--quiz .big-card-icon { background: rgba(255,255,255,0.16); color: var(--white); }
+.big-card-body { display: flex; flex-direction: column; gap: 2px; flex: 1; }
+.big-card-title { font-family: var(--font-display); font-weight: 600; font-size: var(--fs-lg); }
+.big-card--quiz .big-card-title { color: var(--white); }
+.big-card-sub { font-size: var(--fs-sm); color: var(--text-muted); }
+.big-card-arrow { display: grid; place-items: center; color: var(--white); opacity: 0.9; }
+.big-card-arrow svg { width: 22px; height: 22px; }
+
+/* Card bloqueado */
+.big-card--locked { cursor: not-allowed; }
+.big-card--locked::after {
+  content: "";
+  position: absolute; inset: 0;
+  background: rgba(255,251,248,0.55);
+  backdrop-filter: blur(1px);
+}
+.big-card--locked .big-card-icon,
+.big-card--locked .big-card-body { filter: grayscale(0.4); opacity: 0.75; }
+.lock-badge {
+  position: relative; z-index: 2;
+  color: var(--rose-900);
+  background: var(--rose-100);
+  border-radius: var(--r-pill);
+  width: 40px; height: 40px;
+  display: grid; place-items: center;
+  box-shadow: var(--shadow-sm);
+}
+/* Estado desbloqueado: classe .is-unlocked remove cara de bloqueado */
+.big-card.is-unlocked { cursor: pointer; }
+.big-card.is-unlocked::after { display: none; }
+.big-card.is-unlocked .big-card-icon,
+.big-card.is-unlocked .big-card-body { filter: none; opacity: 1; }
+.big-card.is-unlocked .lock-badge {
+  background: linear-gradient(135deg, var(--gold-2), var(--gold));
+  color: var(--rose-900);
+  font-weight: 800;
+  box-shadow: var(--glow-gold);
+}
+
+/* ---------- Toast ---------- */
+.toast {
+  position: fixed;
+  left: 50%;
+  bottom: calc(env(safe-area-inset-bottom, 0px) + 24px);
+  transform: translateX(-50%) translateY(20px);
+  background: var(--rose-900);
+  color: var(--white);
+  padding: 12px 20px;
+  border-radius: var(--r-pill);
+  font-size: var(--fs-sm);
+  box-shadow: var(--shadow-lg);
+  z-index: 999;
+  opacity: 0;
+  transition: opacity var(--t-base) var(--ease), transform var(--t-base) var(--ease);
+  max-width: 90vw;
+}
+.toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+/* ---------- Botão ícone (voltar) ---------- */
+.btn-icon {
+  width: 44px; height: 44px;
+  flex: 0 0 44px;
+  border: none;
+  border-radius: var(--r-pill);
+  background: var(--surface);
+  color: var(--accent-strong);
+  font-size: 1.3rem;
+  display: grid; place-items: center;
+  box-shadow: var(--shadow-sm);
+  -webkit-tap-highlight-color: transparent;
+  transition: transform var(--t-fast) var(--ease);
+}
+.btn-icon:active { transform: scale(0.92); }
+
+/* ---------- Barra de progresso ---------- */
+.progress {
+  flex: 1;
+  height: 8px;
+  background: var(--rose-100);
+  border-radius: var(--r-pill);
+  overflow: hidden;
+}
+.progress-bar {
+  height: 100%;
+  width: 0;
+  background: linear-gradient(90deg, var(--rose-500), var(--rose-700));
+  border-radius: var(--r-pill);
+  transition: width var(--t-base) var(--ease);
+}
+
+/* ---------- Modal (bottom sheet) ---------- */
+.modal-overlay {
+  position: fixed; inset: 0;
+  z-index: 200;
+  background: rgba(43,14,27,0.55);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity var(--t-base) var(--ease);
+  -webkit-backdrop-filter: blur(2px);
+  backdrop-filter: blur(2px);
+}
+.modal-overlay.show { opacity: 1; }
+.modal-overlay[hidden] { display: none; }
+.modal-sheet {
+  width: 100%;
+  max-width: var(--maxw);
+  max-height: 92dvh;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  background: var(--cream);
+  border-radius: var(--r-lg) var(--r-lg) 0 0;
+  padding: var(--sp-6) var(--sp-4)
+           calc(env(safe-area-inset-bottom, 0px) + var(--sp-6));
+  box-shadow: var(--shadow-lg);
+  transform: translateY(24px);
+  transition: transform var(--t-base) var(--ease);
+}
+.modal-overlay.show .modal-sheet { transform: translateY(0); }
+
+/* ---------- Link discreto ---------- */
+.link-muted {
+  background: none; border: none;
+  color: var(--text-muted);
+  font-size: var(--fs-xs);
+  text-decoration: underline;
+  padding: var(--sp-2);
+}

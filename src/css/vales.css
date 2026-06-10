@@ -1,0 +1,137 @@
+/* ============================================================
+   VALES — tela de prêmios, cards, ticket autoral, modal, download
+   ============================================================ */
+
+/* ---------- Cabeçalho da tela ---------- */
+.prizes-top { display: flex; align-items: center; gap: var(--sp-3); margin-bottom: var(--sp-3); }
+.prizes-title { flex: 1; font-size: var(--fs-xl); }
+.prizes-count {
+  font-weight: 700; color: var(--accent-strong);
+  background: var(--surface); padding: 6px 14px;
+  border-radius: var(--r-pill); box-shadow: var(--shadow-sm);
+}
+.prizes-intro { margin-bottom: var(--sp-4); }
+.prizes-footer { margin-top: var(--sp-6); }
+
+/* ---------- Grid de vales ---------- */
+.vale-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--sp-3);
+}
+.vale-card {
+  position: relative;
+  border: none;
+  border-radius: var(--r-md);
+  padding: var(--sp-4);
+  min-height: 150px;
+  display: flex; flex-direction: column; gap: 4px;
+  text-align: left;
+  color: var(--white);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--t-fast) var(--ease);
+}
+.vale-card:active { transform: scale(0.97); }
+.vale-card-icon { font-size: 1.8rem; }
+.vale-card-title { font-family: var(--font-display); font-weight: 700; font-size: var(--fs-md); line-height: 1.2; margin-top: auto; }
+.vale-card-tag { font-size: var(--fs-xs); opacity: 0.9; }
+.vale-card-used {
+  position: absolute; top: 10px; right: 10px;
+  font-size: var(--fs-xs); font-weight: 700;
+  background: rgba(255,255,255,0.9); color: var(--rose-700);
+  padding: 3px 8px; border-radius: var(--r-pill);
+}
+.vale-card.is-used { filter: saturate(0.6) brightness(0.95); }
+
+/* ---------- TICKET completo (modal + imagem baixável) ---------- */
+.vale-capture { padding: 0; }
+.vale-ticket {
+  position: relative;
+  width: 100%;
+  max-width: 360px;
+  margin: 0 auto;
+  border-radius: 20px;
+  padding: 22px;
+  color: var(--white);
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+  isolation: isolate;
+}
+.vale-ticket-sheen {
+  position: absolute; inset: 0;
+  background: linear-gradient(115deg, transparent 30%, rgba(255,255,255,0.28) 48%, transparent 60%);
+  z-index: 0;
+}
+.vale-ticket > *:not(.vale-ticket-sheen) { position: relative; z-index: 1; }
+.vale-ticket-top { display: flex; align-items: center; gap: 14px; }
+.vale-ticket-icon {
+  font-size: 2.2rem;
+  width: 58px; height: 58px;
+  display: grid; place-items: center;
+  background: rgba(255,255,255,0.18);
+  border: 1.5px solid rgba(255,255,255,0.5);
+  border-radius: 16px;
+  flex: 0 0 58px;
+}
+.vale-ticket-heads { display: flex; flex-direction: column; gap: 2px; }
+.vale-ticket-tag {
+  font-size: 0.72rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.1em;
+  opacity: 0.9;
+}
+.vale-ticket-title { font-family: var(--font-display); font-weight: 700; font-size: 1.45rem; color: var(--white); line-height: 1.1; }
+.vale-ticket-desc { margin-top: 16px; font-size: 0.95rem; line-height: 1.45; opacity: 0.96; }
+
+.vale-ticket-perf {
+  position: relative;
+  margin: 18px -22px;
+  border-top: 2px dashed rgba(255,255,255,0.55);
+}
+.vale-ticket-perf span {
+  position: absolute; top: -11px;
+  width: 22px; height: 22px;
+  background: var(--cream);     /* "furos" da picotagem */
+  border-radius: 50%;
+}
+.vale-ticket-perf span:first-child { left: -11px; }
+.vale-ticket-perf span:last-child { right: -11px; }
+
+.vale-ticket-bottom { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+.vale-ticket-footer { font-size: 0.72rem; opacity: 0.9; max-width: 62%; }
+.vale-ticket-brand { font-family: var(--font-display); font-weight: 600; font-size: 0.95rem; white-space: nowrap; }
+
+/* ---------- Temas de cada vale ---------- */
+.vale--presente   { background: linear-gradient(140deg, #D4AF37, #9C7A1E); }
+.vale--restaurante{ background: linear-gradient(140deg, #7B3F2E, #4A2118); }
+.vale--viagem     { background: linear-gradient(140deg, #2F7DA1, #173F5F); }
+.vale--fantasias  { background: linear-gradient(140deg, #B0184B, #4A0A24); }
+.vale--jantar     { background: linear-gradient(140deg, #C2185B, #7A0E38); }
+.vale--cafe       { background: linear-gradient(140deg, #E08A5B, #A85A33); }
+.vale--razao      {
+  background:
+    linear-gradient(140deg, rgba(255,255,255,0.12), transparent),
+    linear-gradient(140deg, #6E1E3A, #2B0E1B);
+}
+/* Brilho holográfico extra no "Tenho Razão" (edição lendária) */
+.vale--razao .vale-ticket-sheen {
+  background:
+    linear-gradient(115deg, transparent 25%, rgba(212,175,55,0.5) 45%, rgba(255,255,255,0.4) 52%, transparent 70%);
+}
+.vale--razao { box-shadow: var(--glow-gold), var(--shadow-md); }
+
+/* ---------- Detalhe (modal) ---------- */
+.vale-detail { display: flex; flex-direction: column; gap: var(--sp-4); }
+.vale-detail-actions { display: flex; flex-direction: column; gap: var(--sp-2); align-items: center; }
+.vale-detail-actions .btn { width: 100%; }
+
+/* ---------- Resultado de imagem para salvar ---------- */
+.imgsave { display: flex; flex-direction: column; gap: var(--sp-3); align-items: stretch; text-align: center; }
+.imgsave-title { font-size: var(--fs-lg); }
+.imgsave-hint { font-size: var(--fs-sm); color: var(--text-muted); }
+.imgsave-img {
+  width: 100%;
+  border-radius: var(--r-md);
+  box-shadow: var(--shadow-md);
+  -webkit-touch-callout: default;   /* permite "salvar imagem" no iOS */
+}

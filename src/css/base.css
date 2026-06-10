@@ -1,0 +1,94 @@
+/* ============================================================
+   BASE — reset, tipografia, layout raiz, utilidades, fundo
+   ============================================================ */
+*, *::before, *::after { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+body {
+  font-family: var(--font-body);
+  color: var(--text);
+  background: linear-gradient(160deg, var(--cream) 0%, var(--rose-100) 100%);
+  background-attachment: fixed;
+  font-size: var(--fs-md);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-size-adjust: 100%;
+  text-rendering: optimizeLegibility;
+  /* iOS: evita "bounce" estranho e respeita notch */
+  min-height: 100vh;
+  min-height: 100dvh;
+  overscroll-behavior-y: none;
+}
+
+h1, h2, h3 { font-family: var(--font-display); font-weight: 600; line-height: 1.15; margin: 0; color: var(--accent-strong); }
+p { margin: 0; }
+button { font-family: inherit; cursor: pointer; }
+img { max-width: 100%; display: block; }
+svg { vertical-align: middle; }
+.btn svg { flex: 0 0 auto; }
+
+/* App container */
+#app {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+
+/* Telas: ocupam viewport, centralizadas, com safe-area do iPhone */
+.screen {
+  width: 100%;
+  max-width: var(--maxw);
+  margin: 0 auto;
+  min-height: 100vh;
+  min-height: 100dvh;
+  padding:
+    calc(env(safe-area-inset-top, 0px) + var(--sp-6))
+    var(--sp-4)
+    calc(env(safe-area-inset-bottom, 0px) + var(--sp-6));
+  display: flex;
+  flex-direction: column;
+  animation: screen-in var(--t-slow) var(--ease);
+}
+.screen[hidden] { display: none; }
+
+@keyframes screen-in {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Utilidades */
+.muted { color: var(--text-muted); }
+.center { text-align: center; }
+.hidden { display: none !important; }
+
+/* Fundo decorativo de corações */
+.bg-hearts {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image:
+    radial-gradient(circle at 15% 20%, rgba(194,24,91,0.06) 0 8px, transparent 9px),
+    radial-gradient(circle at 80% 35%, rgba(212,175,55,0.07) 0 6px, transparent 7px),
+    radial-gradient(circle at 35% 75%, rgba(194,24,91,0.05) 0 10px, transparent 11px),
+    radial-gradient(circle at 70% 85%, rgba(212,175,55,0.05) 0 7px, transparent 8px);
+  background-size: 100% 100%;
+}
+
+/* placeholder de telas em construção */
+.placeholder {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-4);
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.placeholder h2 { font-size: var(--fs-2xl); }
